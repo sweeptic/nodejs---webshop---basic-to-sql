@@ -8,12 +8,16 @@ const p = path.join(
 );
 
 const getProductFromFile = (cb) => {
-   console.log(p)
-   console.log(cb)
-
-   cb()
-
+   fs.readFile(p, (err, fileContent) => {
+      if (err) {
+         cb([]);
+      } else {
+         cb(JSON.parse(fileContent))
+      }
+   })
 }
+
+
 
 module.exports = class Product {
 
@@ -22,6 +26,3 @@ module.exports = class Product {
       getProductFromFile(cb)
    }
 }
-
-
-

@@ -10,22 +10,17 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
 
+    // callback
   const cb = (
     products => {
       res.render('admin/products', {
-        prods: this.getProducts,
+        prods: products,
         pageTitle: 'Admin Products',
         path: '/admin/products',
       });
     })
 
   Product.fetchAll(cb);
-
-  // callback
-
-
-
-
 };
 
 exports.getEditProduct = (req, res, next) => {
