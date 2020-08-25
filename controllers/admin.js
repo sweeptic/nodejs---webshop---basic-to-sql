@@ -1,17 +1,31 @@
-exports.getAddProduct = (req, res, next) => {
-   res.render('admin/edit-product', {
-     pageTitle: 'Add Product',
-     path: '/admin/add-product',
-     editing: false
-   });
- };
+const Product = require("../model/product");
 
- exports.getProducts = (req, res, next) => {
-  res.render('admin/xx', {
-    pageTitle: 'xx',
-    path: '/admin/xx',
+exports.getAddProduct = (req, res, next) => {
+  res.render('admin/edit-product', {
+    pageTitle: 'Add Product',
+    path: '/admin/add-product',
     editing: false
   });
+};
+
+exports.getProducts = (req, res, next) => {
+
+  const cb = (
+    products => {
+      res.render('admin/products', {
+        prods: this.getProducts,
+        pageTitle: 'Admin Products',
+        path: '/admin/products',
+      });
+    })
+
+  Product.fetchAll(cb);
+
+  // callback
+
+
+
+
 };
 
 exports.getEditProduct = (req, res, next) => {
