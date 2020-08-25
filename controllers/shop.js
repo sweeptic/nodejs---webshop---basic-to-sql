@@ -14,7 +14,7 @@ exports.getIndex = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
   const cb =(product) => (
-    res.render('shop/product-detail', {
+    res.render('shop/product-list', {
       prods: product,
       pageTitle: 'Shop',
       path: '/products'
