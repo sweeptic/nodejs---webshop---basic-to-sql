@@ -2,7 +2,7 @@ const Product = require("../model/product");
 
 
 exports.getIndex = (req, res, next) => {
-  const cb =(product) => (
+  const cb = (product) => (
     res.render('shop/index', {
       prods: product,
       pageTitle: 'Shop',
@@ -13,7 +13,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  const cb =(product) => (
+  const cb = (product) => (
     res.render('shop/product-list', {
       prods: product,
       pageTitle: 'Shop',
@@ -24,10 +24,17 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
-  res.render('/xx-xx', {
-    pageTitle: 'xx xx',
-    path: '/xxx'
-  });
+
+  const prodId = req.params.productId;
+
+  const cb = (product) => (
+    res.render('shop/product-detail', {
+      product: product,
+      pageTitle: product.title,
+      path: '/products'
+    }));
+
+  Product.findById(prodId, cb);
 };
 
 exports.getCart = (req, res, next) => {

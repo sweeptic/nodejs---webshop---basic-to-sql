@@ -15,14 +15,30 @@ const getProductFromFile = (cb) => {
          cb(JSON.parse(fileContent))
       }
    })
+   // const cb = (product) => (
+   //    res.render('shop/product-list', {
+   //      prods: product,
+   //      pageTitle: 'Shop',
+   //      path: '/products'
+   //    })
+   //  )
 }
 
 
 
 module.exports = class Product {
 
-
    static fetchAll(cb) {
       getProductFromFile(cb)
+   }
+
+   static findById(id, cb) {
+
+      const cb2 = ((products) => {
+         const product = products.find(p => p.id === id);
+         cb(product);
+      })
+
+      getProductFromFile(cb2);
    }
 }
