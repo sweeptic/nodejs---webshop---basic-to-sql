@@ -38,17 +38,31 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-  res.render('/xx-xx', {
+
+
+  res.render('shop/cart', {
     pageTitle: 'xx xx',
-    path: '/xxx'
+    path: '/cart',
+    pageTitle: 'Your Cart',
+    products: null
   });
+
+
 };
 
 exports.postCart = (req, res, next) => {
-  res.render('/xx-xx', {
-    pageTitle: 'xx xx',
-    path: '/xxx'
-  });
+
+  // const prodId = req.body.productId;
+
+  // const cb = (product) => {
+  //   Cart.addProduct(prodId, product.price)
+  // }
+
+  // Product.findById(prodId, cb);
+
+  res.redirect('/cart');
+
+
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
