@@ -75,9 +75,9 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  res.render('/xx-xx', {
-    pageTitle: 'xx xx',
-    path: '/xxx'
+  res.render('shop/orders', {
+    path: '/orders',
+    pageTitle: 'Your Orders'
   });
 };
 
