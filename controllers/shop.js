@@ -1,5 +1,5 @@
-const Product = require("../model/product");
-
+const Product = require("../models/product");
+const Cart = require('../models/cart');
 
 exports.getIndex = (req, res, next) => {
   const cb = (product) => (
@@ -52,13 +52,15 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
 
-  // const prodId = req.body.productId;
+  const prodId = req.body.productId;
 
-  // const cb = (product) => {
-  //   Cart.addProduct(prodId, product.price)
-  // }
+  //definialunk egy cb-t. itt meg nem hivjuk meg.
+  const cb = (product) => {
+    Cart.addProduct(prodId, product.price)
+  }
 
-  // Product.findById(prodId, cb);
+  //prodid + cb atadjuk ennek a findByIdnak es meghivjuk
+  Product.findById(prodId, cb);
 
   res.redirect('/cart');
 
