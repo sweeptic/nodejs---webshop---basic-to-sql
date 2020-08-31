@@ -7,7 +7,7 @@ const p = path.join(
    'products.json'
 );
 
-const getProductFromFile = (cb2) => {
+const getProductsFromFile = (cb2) => {
    fs.readFile(p, (err, fileContent) => {
       if (err) {
          cb2([]);
@@ -42,9 +42,16 @@ const getProductFromFile = (cb2) => {
 
 
 module.exports = class Product {
+   constructor(id, title, imageUrl, description, price) {
+      this.id = id;
+      this.title = title;
+      this.imageUrl = imageUrl;
+      this.description = description;
+      this.price = price;
+   }
 
    static fetchAll(cb) {
-      getProductFromFile(cb)
+      getProductsFromFile(cb)
    }
 
    static findById(id, cb) {
@@ -61,6 +68,39 @@ module.exports = class Product {
       })
 
       //a cb2-t ataduk
-      getProductFromFile(cb2);
+      getProductsFromFile(cb2);
    }
+
+   save() {
+      getProductsFromFile(products => {
+         if (this.id) {
+            const existingProductIndex = products.findIndex(prod => prod.id === this.id);
+            const updatedProducts = [...products];
+            updatedProducts[existingProductIndex] = this;
+            fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+               console.log(err);
+            });
+         } else {
+            this.id = Math.random().toString();
+            products.push(this);
+            fs.writeFile(p, JSON.stringify(products), err => {
+               console.log(err);
+            });
+         }
+      });
+   }
+
+   static deleteById(id) {
+      getProductsFromFile(products => {
+         const product = products.find(prod => prod.id === id);
+         const updatedProducts = products.filter(p => p.id !== id);
+         fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+            if (!err) {
+               Cart.deleteProduct(id, product.price);
+            }
+         });
+      });
+   }
+
+
 }
